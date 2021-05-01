@@ -1,6 +1,6 @@
 [package]
 name = "keccak-rust"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Anton Grigorev <antongrigorjev2010@gmail.com>"]
 edition = "2018"
 license = "MIT"
