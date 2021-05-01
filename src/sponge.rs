@@ -3,19 +3,15 @@ use super::*;
 pub struct Sponge {
     pub rate: Rate,
     capacity: Capacity,
-    keccak_f: KeccakF
+    keccak_f: KeccakF,
 }
 
 impl Sponge {
-    pub fn new(
-        rate: Rate,
-        capacity: Capacity,
-        width: StateBitsWidth
-    ) -> Sponge {
+    pub fn new(rate: Rate, capacity: Capacity, width: StateBitsWidth) -> Sponge {
         Sponge {
             rate: rate,
             capacity: capacity,
-            keccak_f: KeccakF::new(width)
+            keccak_f: KeccakF::new(width),
         }
     }
 
@@ -74,7 +70,7 @@ impl Sponge {
 
         for i in 0..words_total {
             let mut word_bits: [u8; 8] = Default::default();
-            word_bits.copy_from_slice(&message[i * 8 .. i * 8 + 8]);
+            word_bits.copy_from_slice(&message[i * 8..i * 8 + 8]);
             words[i] = u64::from_le_bytes(word_bits);
         }
         words

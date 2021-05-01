@@ -59,7 +59,7 @@ static ROTATION_CONSTANTS: State = [
     [1, 44, 10, 45, 2],
     [62, 6, 43, 15, 61],
     [28, 55, 25, 21, 56],
-    [27, 20, 39, 8, 14]
+    [27, 20, 39, 8, 14],
 ];
 
 pub enum StateBitsWidth {
@@ -70,7 +70,7 @@ pub enum StateBitsWidth {
     F400,
     F800,
     F1600,
-    Custom(BitsWidth)
+    Custom(BitsWidth),
 }
 
 pub enum SecurityLevel {
@@ -78,7 +78,7 @@ pub enum SecurityLevel {
     SHA256,
     SHA384,
     SHA512,
-    Custom(Security)
+    Custom(Security),
 }
 
 /// An implementation of keccak functions. [`The Keccak reference`].
@@ -89,13 +89,13 @@ pub enum SecurityLevel {
 /// [dependencies]
 /// keccak-rust = *
 /// ```
-/// 
+///
 /// ```rust
 /// extern crate keccak_rust;
 /// use keccak_rust::*;
-/// 
+///
 /// const YOUR_INPUT_BYTES: [Bit; 12] = [72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33];
-/// 
+///
 /// fn main() {
 ///     let mut keccak = Keccak::new(SecurityLevel::SHA256, StateBitsWidth::F1600);
 ///     keccak.append(&mut YOUR_INPUT_BYTES);
@@ -111,13 +111,13 @@ pub struct Keccak {
 
 impl Keccak {
     /// Creates a new keccak state with a provided security level and state bits width.
-    /// 
-    /// Possible securities levels: 
+    ///
+    /// Possible securities levels:
     /// - SHA224 (224 bit)
     /// - SHA256 (256 bit)
     /// - SHA384 (384 bit)
     /// - SHA512 (512 bit)
-    /// 
+    ///
     /// Possible state bits widths:
     /// - f25
     /// - f50
@@ -132,17 +132,13 @@ impl Keccak {
             SecurityLevel::SHA256 => (RATES[1], CAPACITIES[1]),
             SecurityLevel::SHA384 => (RATES[2], CAPACITIES[2]),
             SecurityLevel::SHA512 => (RATES[3], CAPACITIES[3]),
-            SecurityLevel::Custom(security) => (security.0, security.1)
+            SecurityLevel::Custom(security) => (security.0, security.1),
         };
 
         Keccak {
             state: [[0; 5]; 5],
             // rate & capacity in bytes
-            sponge: Sponge::new(
-                security_level.0 / 8,
-                security_level.1 / 8,
-                width
-            ),
+            sponge: Sponge::new(security_level.0 / 8, security_level.1 / 8, width),
         }
     }
 
@@ -156,14 +152,14 @@ impl Keccak {
         } else {
             padding = vec![];
             padding.push(0x01);
-            
+
             for _ in 0..(padding_total - 2) {
                 padding.push(0x00);
             }
 
             padding.push(0x80);
         }
-        
+
         let padded_input: &BitsArr = &[input, &padding].concat();
         self.sponge.absorb(&mut self.state, padded_input);
     }

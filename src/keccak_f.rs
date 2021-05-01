@@ -6,7 +6,7 @@ type WordLen = usize;
 type Log = usize;
 
 pub struct KeccakF {
-    perm_num: PermutationsNum
+    perm_num: PermutationsNum,
 }
 
 impl KeccakF {
@@ -23,19 +23,14 @@ impl KeccakF {
                 let wl: WordLen = width / 25;
                 let l: Log = (wl as f32).log2() as Log;
                 12 + 2 * l
-            },
+            }
         };
-        KeccakF {
-            perm_num: perm_num
-        }
+        KeccakF { perm_num: perm_num }
     }
 
     pub fn permutations(&self, mut a: &mut State) {
-        assert!(
-            self.perm_num < 25,
-            "Wrong permutations number"
-        );
-        
+        assert!(self.perm_num < 25, "Wrong permutations number");
+
         for i in 0..self.perm_num {
             KeccakF::round_b(&mut a, ROUND_CONSTANTS[i]);
         }
@@ -53,7 +48,7 @@ impl KeccakF {
     fn theta(a: &mut State) {
         let mut c: [u64; 5] = [0; 5];
         let mut d: [u64; 5] = [0; 5];
-    
+
         unroll! {
             for i in 0..5 {
                 c[i] = a[i][0]
@@ -63,13 +58,13 @@ impl KeccakF {
                     ^ a[i][4];
             }
         }
-        
+
         unroll! {
             for i in 0..5 {
                 d[i] = c[(i + 4) % 5] ^ c[(i + 1) % 5].rotate_left(1);
             }
         }
-    
+
         unroll! {
             for i in 0..5 {
                 unroll! {
@@ -88,7 +83,8 @@ impl KeccakF {
             for i in 0..5 {
                 unroll! {
                     for j in 0..5 {
-                        temp[1 * j][(2 * i + 3 * j) % 5] = a[i][j].rotate_left(ROTATION_CONSTANTS[i][j] as u32);
+                        temp[1 * j][(2 * i + 3 * j) % 5]
+                            = a[i][j].rotate_left(ROTATION_CONSTANTS[i][j] as u32);
                     }
                 }
             }
@@ -102,7 +98,9 @@ impl KeccakF {
             for i in 0..5 {
                 unroll! {
                     for j in 0..5 {
-                        a[i][j] = temp[i][j] ^ (!temp[(i + 1) % 5][j] & temp[(i + 2) % 5][j]);
+                        a[i][j] = temp[i][j]
+                            ^ (!temp[(i + 1) % 5][j]
+                                & temp[(i + 2) % 5][j]);
                     }
                 }
             }
