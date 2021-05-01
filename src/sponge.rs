@@ -15,7 +15,7 @@ impl Sponge {
         }
     }
 
-    pub fn absorb(&self, mut state: &mut State, message: &BitsArr) {
+    pub fn absorb(&self, mut state: &mut State, message: &BytesArr) {
         assert!(
             message.len() % self.rate == 0,
             "Message is not divisible entirely by bytes rate"
@@ -43,7 +43,7 @@ impl Sponge {
         }
     }
 
-    pub fn squeeze(&self, state: &mut State) -> BitsVec {
+    pub fn squeeze(&self, state: &mut State) -> BytesVec {
         let mut output: Vec<u8> = vec![];
 
         let output_len: usize = self.capacity / 2;
@@ -64,7 +64,7 @@ impl Sponge {
         output
     }
 
-    fn bits_to_u64_words_le(message: &BitsArr) -> Vec<u64> {
+    fn bits_to_u64_words_le(message: &BytesArr) -> Vec<u64> {
         let words_total = message.len() / 8;
         let mut words: Vec<u64> = vec![0; words_total];
 

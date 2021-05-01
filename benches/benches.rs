@@ -3,7 +3,7 @@ use criterion::{criterion_group, criterion_main, Criterion};
 extern crate keccak_rust;
 use keccak_rust::*;
 
-const LONG_INPUT_BYTES: [Bit; 445] = [
+const LONG_INPUT_BYTES: [Byte; 445] = [
     76, 111, 114, 101, 109, 32, 105, 112, 115, 117, 109, 32, 100, 111, 108, 111, 114, 32, 115, 105,
     116, 32, 97, 109, 101, 116, 44, 32, 99, 111, 110, 115, 101, 99, 116, 101, 116, 117, 114, 32,
     97, 100, 105, 112, 105, 115, 99, 105, 110, 103, 32, 101, 108, 105, 116, 44, 32, 115, 101, 100,

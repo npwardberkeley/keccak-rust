@@ -13,10 +13,10 @@ pub type Rate = usize;
 pub type Capacity = usize;
 pub type Security = (Rate, Capacity);
 
-pub type Bit = u8;
+pub type Byte = u8;
 pub type State = [[u64; 5]; 5];
-pub type BitsVec = Vec<Bit>;
-pub type BitsArr = [Bit];
+pub type BytesVec = Vec<Byte>;
+pub type BytesArr = [Byte];
 
 pub type PermutationsNum = usize;
 
@@ -94,7 +94,7 @@ pub enum SecurityLevel {
 /// extern crate keccak_rust;
 /// use keccak_rust::*;
 ///
-/// const YOUR_INPUT_BYTES: [Bit; 12] = [72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33];
+/// const YOUR_INPUT_BYTES: [u8; 12] = [72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33];
 ///
 /// fn main() {
 ///     let mut keccak = Keccak::new(SecurityLevel::SHA256, StateBitsWidth::F1600);
@@ -143,9 +143,9 @@ impl Keccak {
     }
 
     /// Appends input to current state
-    pub fn append(&mut self, input: &BitsArr) {
+    pub fn append(&mut self, input: &BytesArr) {
         let padding_total = self.sponge.rate - (input.len() % self.sponge.rate);
-        let mut padding: Vec<Bit>;
+        let mut padding: Vec<Byte>;
 
         if padding_total == 1 {
             padding = vec![0x81];
@@ -160,12 +160,12 @@ impl Keccak {
             padding.push(0x80);
         }
 
-        let padded_input: &BitsArr = &[input, &padding].concat();
+        let padded_input: &BytesArr = &[input, &padding].concat();
         self.sponge.absorb(&mut self.state, padded_input);
     }
 
     /// Returns keccak hash based on current state
-    pub fn hash(&mut self) -> BitsVec {
+    pub fn hash(&mut self) -> BytesVec {
         self.sponge.squeeze(&mut self.state)
     }
 }

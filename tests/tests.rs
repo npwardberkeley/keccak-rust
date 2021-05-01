@@ -1,11 +1,11 @@
 extern crate keccak_rust;
 use keccak_rust::*;
 
-const EMPTY_INPUT_BYTES: [Bit; 0] = [];
+const EMPTY_INPUT_BYTES: [Byte; 0] = [];
 
-const SHORT_INPUT_BYTES: [Bit; 12] = [72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33];
+const SHORT_INPUT_BYTES: [Byte; 12] = [72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33];
 
-const LONG_INPUT_BYTES: [Bit; 445] = [
+const LONG_INPUT_BYTES: [Byte; 445] = [
     76, 111, 114, 101, 109, 32, 105, 112, 115, 117, 109, 32, 100, 111, 108, 111, 114, 32, 115, 105,
     116, 32, 97, 109, 101, 116, 44, 32, 99, 111, 110, 115, 101, 99, 116, 101, 116, 117, 114, 32,
     97, 100, 105, 112, 105, 115, 99, 105, 110, 103, 32, 101, 108, 105, 116, 44, 32, 115, 101, 100,
@@ -31,7 +31,7 @@ const LONG_INPUT_BYTES: [Bit; 445] = [
     114, 117, 109, 46,
 ];
 
-fn empty_output(num: u8) -> BitsVec {
+fn empty_output(num: u8) -> BytesVec {
     let res = match num {
         0 => vec![
             247, 24, 55, 80, 43, 168, 225, 8, 55, 189, 216, 211, 101, 173, 184, 85, 145, 137, 86,
@@ -57,7 +57,7 @@ fn empty_output(num: u8) -> BitsVec {
     res
 }
 
-fn short_output(num: u8) -> BitsVec {
+fn short_output(num: u8) -> BytesVec {
     let res = match num {
         0 => vec![
             37, 40, 220, 123, 26, 44, 44, 69, 211, 27, 162, 229, 178, 29, 70, 247, 133, 88, 22, 14,
@@ -83,7 +83,7 @@ fn short_output(num: u8) -> BitsVec {
     res
 }
 
-fn long_output(num: u8) -> BitsVec {
+fn long_output(num: u8) -> BytesVec {
     let res = match num {
         0 => vec![
             51, 206, 47, 198, 90, 198, 98, 250, 225, 118, 67, 208, 142, 72, 87, 44, 114, 183, 153,
