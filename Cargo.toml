@@ -6,7 +6,7 @@ edition = "2018"
 license = "MIT"
 homepage = "https://github.com/BaldyAsh/keccak-rust/"
 repository = "https://github.com/BaldyAsh/keccak-rust/"
-description = "Keccak"
+description = "Keccak implementation in Rust"
 documentation = "https://docs.rs/keccak-rust"
 readme = "README.md"
 
