@@ -1,7 +1,7 @@
 # keccak-rust
 
 An implementation of keccak functions.
-[`The Keccak reference`](https://keccak.team/files/Keccak-reference-3.0.pdf)].
+[`The Keccak reference`](https://keccak.team/files/Keccak-reference-3.0.pdf).
 
 # Example
 
