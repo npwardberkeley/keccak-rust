@@ -1,0 +1,32 @@
+[package]
+name = "keccak-rust"
+version = "1.0.0"
+authors = ["Anton Grigorev <antongrigorjev2010@gmail.com>"]
+edition = "2018"
+license = "MIT"
+homepage = "https://github.com/BaldyAsh/keccak-rust/"
+repository = "https://github.com/BaldyAsh/keccak-rust/"
+description = "Keccak"
+documentation = "https://docs.rs/keccak-rust"
+readme = "README.md"
+
+[dependencies]
+crunchy = "0.2"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[lib]
+path = "src/lib.rs"
+
+[[bench]]
+name = "benches"
+harness = false
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+opt-level = 3
+debug = false
