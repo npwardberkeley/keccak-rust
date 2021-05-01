@@ -9,6 +9,8 @@ repository = "https://github.com/BaldyAsh/keccak-rust/"
 description = "Keccak implementation in Rust"
 documentation = "https://docs.rs/keccak-rust"
 readme = "README.md"
+keywords = ["keccak", "sha3", "crypto", "cryptography"]
+categories = ["cryptography"]
 
 [dependencies]
 crunchy = "0.2"
