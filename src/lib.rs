@@ -2,7 +2,7 @@
 #![crate_name = "keccak_rust"]
 
 mod keccak_f;
-use keccak_f::*;
+pub use keccak_f::*;
 
 mod sponge;
 use sponge::*;
